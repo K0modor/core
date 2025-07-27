@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend.user_data_bd12bcdc5fc24b8f93519a2e1c5925a4",
+  "data": {
+    "sidebar": {
+      "panelOrder": [
+        "dashboard-openenergy",
+        "lovelace",
+        "energy",
+        "logbook",
+        "history",
+        "media-browser",
+        "map",
+        "todo",
+        "developer-tools"
+      ],
+      "hiddenPanels": []
+    }
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_openenergy",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "type": "sections",
+          "max_columns": 4,
+          "icon": "mdi:home",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Nouvelle section"
+                },
+                {
+                  "type": "custom:navbar-card",
+                  "routes": [
+                    {
+                      "url": "/dashboard-openenergy/0",
+                      "icon": "mdi:home",
+                      "label": "Home"
+                    },
+                    {
+                      "url": "/dashboard-openenergy/0/devices",
+                      "icon": "mdi:devices",
+                      "label": "Devices",
+                      "hold_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/dashboard"
+                      }
+                    },
+                    {
+                      "url": "/config/automation/dashboard",
+                      "icon": "mdi:creation",
+                      "label": "Automations"
+                    },
+                    {
+                      "url": "/config/dashboard",
+                      "icon": "mdi:cog",
+                      "label": "Settings"
+                    },
+                    {
+                      "icon": "mdi:dots-horizontal",
+                      "label": "More",
+                      "tap_action": {
+                        "action": "open-popup"
+                      },
+                      "popup": [
+                        {
+                          "icon": "mdi:cog",
+                          "url": "/config/dashboard"
+                        },
+                        {
+                          "icon": "mdi:hammer",
+                          "url": "/developer-tools/yaml"
+                        },
+                        {
+                          "icon": "mdi:power",
+                          "tap_action": {
+                            "action": "call-service",
+                            "service": "homeassistant.restart",
+                            "service_data": {},
+                            "confirmation": {
+                              "text": "Are you sure you want to restart Home Assistant?"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "cards": [],
+          "subview": false
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "Electric Car",
+          "path": "electric-car",
+          "icon": "mdi:car-electric",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Nouvelle section"
+                },
+                {
+                  "type": "custom:navbar-card",
+                  "routes": [
+                    {
+                      "url": "/dashboard-openenergy/electric-car",
+                      "icon": "mdi:home",
+                      "label": "Home"
+                    },
+                    {
+                      "url": "/dashboard-openenergy/electric-car/devices",
+                      "icon": "mdi:devices",
+                      "label": "Devices",
+                      "hold_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/dashboard"
+                      }
+                    },
+                    {
+                      "url": "/config/automation/dashboard",
+                      "icon": "mdi:creation",
+                      "label": "Automations"
+                    },
+                    {
+                      "url": "/config/dashboard",
+                      "icon": "mdi:cog",
+                      "label": "Settings"
+                    },
+                    {
+                      "icon": "mdi:dots-horizontal",
+                      "label": "More",
+                      "tap_action": {
+                        "action": "open-popup"
+                      },
+                      "popup": [
+                        {
+                          "icon": "mdi:cog",
+                          "url": "/config/dashboard"
+                        },
+                        {
+                          "icon": "mdi:hammer",
+                          "url": "/developer-tools/yaml"
+                        },
+                        {
+                          "icon": "mdi:power",
+                          "tap_action": {
+                            "action": "call-service",
+                            "service": "homeassistant.restart",
+                            "service_data": {},
+                            "confirmation": {
+                              "text": "Are you sure you want to restart Home Assistant?"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "Heatpump",
+          "path": "heatpump",
+          "icon": "mdi:heat-pump",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Nouvelle section"
+                },
+                {
+                  "type": "custom:navbar-card",
+                  "routes": [
+                    {
+                      "url": "/dashboard-openenergy/heatpump",
+                      "icon": "mdi:home",
+                      "label": "Home"
+                    },
+                    {
+                      "url": "/dashboard-openenergy/heatpump/devices",
+                      "icon": "mdi:devices",
+                      "label": "Devices",
+                      "hold_action": {
+                        "action": "navigate",
+                        "navigation_path": "/config/devices/dashboard"
+                      }
+                    },
+                    {
+                      "url": "/config/automation/dashboard",
+                      "icon": "mdi:creation",
+                      "label": "Automations"
+                    },
+                    {
+                      "url": "/config/dashboard",
+                      "icon": "mdi:cog",
+                      "label": "Settings"
+                    },
+                    {
+                      "icon": "mdi:dots-horizontal",
+                      "label": "More",
+                      "tap_action": {
+                        "action": "open-popup"
+                      },
+                      "popup": [
+                        {
+                          "icon": "mdi:cog",
+                          "url": "/config/dashboard"
+                        },
+                        {
+                          "icon": "mdi:hammer",
+                          "url": "/developer-tools/yaml"
+                        },
+                        {
+                          "icon": "mdi:power",
+                          "tap_action": {
+                            "action": "call-service",
+                            "service": "homeassistant.restart",
+                            "service_data": {},
+                            "confirmation": {
+                              "text": "Are you sure you want to restart Home Assistant?"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

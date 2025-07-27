@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_resources",
+  "data": {
+    "items": [
+      {
+        "id": "eecdb4d082d54eef9770b41ecd022b08",
+        "url": "/local/navbar-card.js",
+        "type": "module"
+      }
+    ]
+  }
+}
