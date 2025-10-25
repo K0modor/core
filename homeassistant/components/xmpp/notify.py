@@ -22,6 +22,8 @@ from slixmpp.xmlstream.xmlstream import NotConnectedError
 import voluptuous as vol
 
 from homeassistant.components.notify import (
+    ATTR_DATA,
+    ATTR_TARGET,
     ATTR_TITLE,
     ATTR_TITLE_DEFAULT,
     PLATFORM_SCHEMA as NOTIFY_PLATFORM_SCHEMA,
@@ -40,7 +42,6 @@ from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 
 _LOGGER = logging.getLogger(__name__)
 
-ATTR_DATA = "data"
 ATTR_PATH = "path"
 ATTR_PATH_TEMPLATE = "path_template"
 ATTR_TIMEOUT = "timeout"
@@ -48,7 +49,6 @@ ATTR_URL = "url"
 ATTR_URL_TEMPLATE = "url_template"
 ATTR_VERIFY = "verify"
 
-CONF_TITLE = "title"
 CONF_TLS = "tls"
 CONF_VERIFY = "verify"
 
@@ -65,7 +65,6 @@ PLATFORM_SCHEMA = NOTIFY_PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_ROOM, default=""): cv.string,
         vol.Optional(CONF_TLS, default=True): cv.boolean,
         vol.Optional(CONF_VERIFY, default=True): cv.boolean,
-        vol.Optional(CONF_TITLE, default=ATTR_TITLE_DEFAULT): cv.string,
     }
 )
 
@@ -84,7 +83,6 @@ async def async_get_service(
         config.get(CONF_TLS),
         config.get(CONF_VERIFY),
         config.get(CONF_ROOM),
-        config.get(CONF_TITLE),
         hass,
     )
 
@@ -92,9 +90,7 @@ async def async_get_service(
 class XmppNotificationService(BaseNotificationService):
     """Implement the notification service for Jabber (XMPP)."""
 
-    def __init__(
-        self, sender, resource, password, recipient, tls, verify, room, title, hass
-    ):
+    def __init__(self, sender, resource, password, recipient, tls, verify, room, hass):
         """Initialize the service."""
         self._hass = hass
         self._sender = sender
@@ -104,19 +100,19 @@ class XmppNotificationService(BaseNotificationService):
         self._tls = tls
         self._verify = verify
         self._room = room
-        self._title = title
 
     async def async_send_message(self, message="", **kwargs):
         """Send a message to a user."""
-        title = kwargs.get(ATTR_TITLE, self._title)
+        title = kwargs.get(ATTR_TITLE, ATTR_TITLE_DEFAULT)
         text = f"{title}: {message}" if title else message
+        targets = kwargs.get(ATTR_TARGET, self._recipients)
         data = kwargs.get(ATTR_DATA)
         timeout = data.get(ATTR_TIMEOUT, XEP_0363_TIMEOUT) if data else None
 
         await async_send_message(
             f"{self._sender}/{self._resource}",
             self._password,
-            self._recipients,
+            targets,
             self._tls,
             self._verify,
             self._room,
@@ -150,7 +146,10 @@ async def async_send_message(  # noqa: C901
 
             self.loop = hass.loop
 
-            self.force_starttls = use_tls
+            self.enable_starttls = use_tls
+            self.enable_direct_tls = use_tls
+            self.enable_plaintext = not use_tls
+            self["feature_mechanisms"].unencrypted_scram = not use_tls
             self.use_ipv6 = False
             self.add_event_handler("failed_all_auth", self.disconnect_on_login_fail)
             self.add_event_handler("session_start", self.start)
@@ -169,7 +168,7 @@ async def async_send_message(  # noqa: C901
                 self.register_plugin("xep_0128")  # Service Discovery
                 self.register_plugin("xep_0363")  # HTTP upload
 
-            self.connect(force_starttls=self.force_starttls, use_ssl=False)
+            self.connect()
 
         async def start(self, event):
             """Start the communication and sends the message."""
